@@ -28,7 +28,7 @@ interface UserSessionsListProps {
 export function UserSessionsList({ sessions }: UserSessionsListProps) {
   const [showIp, setShowIp] = React.useState<boolean>(false)
 
-  if (!sessions) return null
+  if (!sessions || sessions.length === 0) return null
 
   return (
     <Table className="mt-6">
