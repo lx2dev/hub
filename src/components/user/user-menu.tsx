@@ -48,7 +48,7 @@ export function UserMenu({ user }: UserMenuProps) {
             authClient.signOut({
               fetchOptions: {
                 onSuccess() {
-                  router.push("https://link.lx2.dev")
+                  router.push("/")
                 },
               },
             })
