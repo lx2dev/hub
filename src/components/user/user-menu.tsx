@@ -30,8 +30,8 @@ export function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuLabel className="text-muted-foreground text-xs">
           Manage Account
         </DropdownMenuLabel>
-        {LINKS.profileLinks.map((link, idx) => (
-          <DropdownMenuItem key={idx} className="cursor-pointer" asChild>
+        {LINKS.profileLinks.map((link) => (
+          <DropdownMenuItem asChild className="cursor-pointer" key={link.href}>
             <Link
               // @ts-expect-error Invalid types from typed-routes
               href={link.href}
@@ -43,6 +43,7 @@ export function UserMenu({ user }: UserMenuProps) {
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          className="cursor-pointer"
           onClick={() =>
             authClient.signOut({
               fetchOptions: {
@@ -52,7 +53,6 @@ export function UserMenu({ user }: UserMenuProps) {
               },
             })
           }
-          className="cursor-pointer"
         >
           Logout
         </DropdownMenuItem>
