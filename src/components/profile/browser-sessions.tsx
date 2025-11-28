@@ -1,8 +1,10 @@
 "use client"
 
+import type { Session } from "better-auth"
 import * as React from "react"
 import { toast } from "sonner"
 
+import { UserSessionsList } from "@/components/profile/user-sessions-list"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -18,7 +20,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Spinner } from "@/components/ui/spinner"
 import { authClient, useSession } from "@/lib/auth/client"
 
-export function RevokeSessions() {
+interface BrowserSessionsProps {
+  sessions: Session[] | null
+}
+
+export function BrowserSessions({ sessions }: BrowserSessionsProps) {
   const { data: session } = useSession()
 
   const [open, setOpen] = React.useState<boolean>(false)
@@ -81,6 +87,8 @@ export function RevokeSessions() {
             </AlertDialogContent>
           </AlertDialog>
         </div>
+
+        <UserSessionsList sessions={sessions} />
       </CardContent>
     </Card>
   )
