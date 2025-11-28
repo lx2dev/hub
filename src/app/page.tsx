@@ -35,7 +35,9 @@ export default async function HomePage() {
           </nav>
         </header>
 
-        <main className="mt-6"></main>
+        <main className="mt-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8"></div>
+        </main>
 
         <footer className="py-16 text-center text-muted-foreground text-sm">
           Lx2 Hub

@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { UserAvatar } from "@/components/user/user-avatar"
-import { LINKS } from "@/constants"
+import { config } from "@/constants"
 import { authClient } from "@/lib/auth/client"
 
 interface UserMenuProps {
@@ -23,6 +23,8 @@ interface UserMenuProps {
 export function UserMenu({ user }: UserMenuProps) {
   const router = useRouter()
   const { setTheme, resolvedTheme } = useTheme()
+
+  const LINKS = config.internalLinks
 
   const toggleTheme = React.useCallback(() => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark")

@@ -1,6 +1,5 @@
 "use client"
 
-import type { User } from "better-auth"
 import { ArrowUpRightIcon, MenuIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -15,7 +14,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { UserAvatar } from "@/components/user/user-avatar"
 import { UserMenu } from "@/components/user/user-menu"
-import { LINKS } from "@/constants"
+import { config } from "@/constants"
 import { authClient, useSession } from "@/lib/auth/client"
 import { cn } from "@/lib/utils"
 
@@ -25,6 +24,8 @@ export function SiteNav() {
 
   const { data: session } = useSession()
   const user = session?.user
+
+  const LINKS = config.internalLinks
 
   return (
     <div className="z-50 border-b bg-background">

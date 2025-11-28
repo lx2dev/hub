@@ -2,10 +2,12 @@
 
 import { usePathname } from "next/navigation"
 
-import { LINKS } from "@/constants"
+import { config } from "@/constants"
 
 export function SiteHeader() {
   const pathname = usePathname()
+
+  const LINKS = config.internalLinks
 
   return (
     <header className="bg-background shadow">
