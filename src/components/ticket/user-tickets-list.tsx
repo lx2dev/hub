@@ -11,33 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { cn } from "@/lib/utils"
-import type { Ticket, TicketStatus } from "@/server/db/schema"
+import { cn, normalizeStatus } from "@/lib/utils"
+import type { Ticket } from "@/server/db/schema"
 
 interface UserTicketsListProps {
   tickets: Ticket[]
-}
-
-function normalizeStatus(status: TicketStatus) {
-  switch (status) {
-    case "open":
-      return {
-        className: "border-green-500/50 bg-green-500/20",
-        label: "Open",
-      }
-    case "in_progress":
-      return {
-        className: "border-yellow-500/50 bg-yellow-500/20",
-        label: "In Progress",
-      }
-    case "closed":
-      return {
-        className: "border-blue-500/50 bg-blue-500/20",
-        label: "Closed",
-      }
-    default:
-      return status
-  }
 }
 
 export function UserTicketsList({ tickets }: UserTicketsListProps) {
