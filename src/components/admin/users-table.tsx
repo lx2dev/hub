@@ -1,3 +1,5 @@
+"use client"
+
 import type { User } from "better-auth"
 import { formatDate } from "date-fns"
 import { BadgeCheckIcon, BadgeXIcon, MoreVerticalIcon } from "lucide-react"
@@ -18,12 +20,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { cn } from "@/lib/utils"
 
 interface UsersTableProps {
   users: User[]
+  currentUser: User
 }
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable({ users, currentUser }: UsersTableProps) {
+  async function handleBanUser(userId: string) {
+    console.log({ userId })
+  }
+
   return (
     <Table>
       <TableHeader>
@@ -62,18 +70,33 @@ export function UsersTable({ users }: UsersTableProps) {
               <TableCell className="text-right">
                 {formatDate(user.createdAt, "PP")}
               </TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <MoreVerticalIcon />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Manage User</DropdownMenuLabel>
-                    <DropdownMenuItem>Ban</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              <TableCell
+                className={cn(
+                  "text-right",
+                  user.id === currentUser.id && "py-[26.25px]"
+                )}
+              >
+                {user.id === currentUser.id ? null : (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        disabled={user.id === currentUser.id}
+                        size="icon"
+                        variant="ghost"
+                      >
+                        <MoreVerticalIcon />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel className="text-muted-foreground">
+                        Manage User
+                      </DropdownMenuLabel>
+                      <DropdownMenuItem onClick={() => handleBanUser(user.id)}>
+                        Ban
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
               </TableCell>
             </TableRow>
           ))
