@@ -14,7 +14,7 @@ export const post = createTable(
     name: d.varchar({ length: 255 }).notNull(),
     updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
   }),
-  (t) => [index("post_name_idx").on(t.name)]
+  (t) => [index("post_name_idx").on(t.name)],
 )
 
 export const user = createTable(
@@ -37,7 +37,7 @@ export const user = createTable(
   (t) => [
     index("user_name_idx").on(t.name),
     index("user_email_idx").on(t.email),
-  ]
+  ],
 )
 
 export const session = createTable(
@@ -58,7 +58,7 @@ export const session = createTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   }),
-  (t) => [index("session_userId_idx").on(t.userId)]
+  (t) => [index("session_userId_idx").on(t.userId)],
 )
 
 export const account = createTable(
@@ -84,7 +84,7 @@ export const account = createTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   }),
-  (t) => [index("account_userId_idx").on(t.userId)]
+  (t) => [index("account_userId_idx").on(t.userId)],
 )
 
 export const verification = createTable(
@@ -100,5 +100,5 @@ export const verification = createTable(
     updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
     value: d.text().notNull(),
   }),
-  (t) => [index("verification_identifier_idx").on(t.identifier)]
+  (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
