@@ -22,18 +22,18 @@ function normalizeStatus(status: TicketStatus) {
   switch (status) {
     case "open":
       return {
-        label: "Open",
         className: "border-green-500/50 bg-green-500/20",
+        label: "Open",
       }
     case "in_progress":
       return {
-        label: "In Progress",
         className: "border-yellow-500/50 bg-yellow-500/20",
+        label: "In Progress",
       }
     case "closed":
       return {
-        label: "Closed",
         className: "border-blue-500/50 bg-blue-500/20",
+        label: "Closed",
       }
     default:
       return status
@@ -45,7 +45,7 @@ export function UserTicketsList({ tickets }: UserTicketsListProps) {
     <Table className="mb-6">
       <TableHeader>
         <TableRow>
-          <TableHead className="text-muted-foreground w-[100px]">
+          <TableHead className="w-[100px] text-muted-foreground">
             Status
           </TableHead>
           <TableHead className="text-muted-foreground">Reason</TableHead>
@@ -55,12 +55,12 @@ export function UserTicketsList({ tickets }: UserTicketsListProps) {
       </TableHeader>
       <TableBody>
         {tickets.map((ticket) => (
-          <TableRow key={ticket.id} className="odd:bg-secondary">
+          <TableRow className="odd:bg-secondary" key={ticket.id}>
             <TableCell>
               <Badge
                 className={cn(
                   "font-medium text-white capitalize",
-                  normalizeStatus(ticket.status).className,
+                  normalizeStatus(ticket.status).className
                 )}
               >
                 {normalizeStatus(ticket.status).label}
@@ -69,7 +69,7 @@ export function UserTicketsList({ tickets }: UserTicketsListProps) {
             <TableCell>{ticket.reason}</TableCell>
             <TableCell>{ticket.description}</TableCell>
             <TableCell className="text-right">
-              <Button size="sm" variant="link" className="p-0!" asChild>
+              <Button asChild className="p-0!" size="sm" variant="link">
                 <Link href={`/tickets/${ticket.id}`}>
                   Details <ArrowRightIcon />
                 </Link>
