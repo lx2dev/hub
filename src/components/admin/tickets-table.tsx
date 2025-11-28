@@ -14,11 +14,11 @@ import {
 import { cn, normalizeStatus } from "@/lib/utils"
 import type { Ticket } from "@/server/db/schema"
 
-interface TicketTableProps {
+interface TicketsTableProps {
   tickets: Ticket[]
 }
 
-export function TicketTable({ tickets }: TicketTableProps) {
+export function TicketsTable({ tickets }: TicketsTableProps) {
   return (
     <Table>
       <TableHeader>

@@ -1,7 +1,7 @@
 import { desc } from "drizzle-orm"
 
-import { TicketTable } from "@/components/admin/ticket-table"
-import { UsersTable } from "@/components/admin/user-table"
+import { TicketsTable } from "@/components/admin/tickets-table"
+import { UsersTable } from "@/components/admin/users-table"
 import { Separator } from "@/components/ui/separator"
 import { db } from "@/server/db"
 import { ticket, user } from "@/server/db/schema"
@@ -23,7 +23,7 @@ export default async function AdminPage() {
         </div>
 
         <div className="mt-5 md:col-span-4 md:mt-0">
-          <TicketTable tickets={tickets} />
+          <TicketsTable tickets={tickets} />
         </div>
       </div>
 
