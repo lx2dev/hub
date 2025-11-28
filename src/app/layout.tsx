@@ -26,7 +26,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn("antialiased", figtree.variable)}>
         <ThemeProvider>
-          <div className="min-h-screen bg-white dark:bg-black">{children}</div>
+          <div className="min-h-screen bg-gray-50 dark:bg-black">
+            {children}
+          </div>
           <Toaster position="top-center" richColors />
         </ThemeProvider>
       </body>
