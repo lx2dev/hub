@@ -58,6 +58,7 @@
     },
     "enabled": true,
     "rules": {
+      "a11y": "off",
       "complexity": {
         "noExtraBooleanCast": "warn",
         "noUselessFragments": "warn",
@@ -87,6 +88,7 @@
         "useShorthandAssign": "error"
       },
       "suspicious": {
+        "noArrayIndexKey": "info",
         "noUnknownAtRules": "off"
       }
     }
