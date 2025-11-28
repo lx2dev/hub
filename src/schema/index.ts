@@ -17,3 +17,11 @@ export const ticketFormSchema = z.object({
     message: "Please select a reason",
   }),
 })
+
+export const banFormSchema = z.object({
+  duration: z.string().optional(),
+  reason: z.string().min(5, {
+    message: "Reason must be at least 5 characters long",
+  }),
+  userId: z.string(),
+})
