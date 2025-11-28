@@ -6,10 +6,10 @@ import { auth } from "@/server/auth"
 export async function GET(_req: NextRequest) {
   const res = await auth.api.signInSocial({
     body: {
-      callbackURL: "/",
+      callbackURL: "/dashboard",
       provider: "discord",
     },
   })
 
-  return NextResponse.redirect(res.url ?? "/")
+  return NextResponse.redirect(res.url ?? "/dashboard")
 }
