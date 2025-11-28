@@ -15,6 +15,8 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NODE_ENV: process.env.NODE_ENV,
+    REDIS_URL: process.env.REDIS_URL,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
   },
 
   server: {
@@ -25,6 +27,8 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    REDIS_URL: z.url(),
+    RESEND_API_KEY: z.string(),
   },
 
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
