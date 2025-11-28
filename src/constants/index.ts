@@ -3,7 +3,6 @@ export const config = {
     "create-lx2-app": "https://create.lx2.dev",
     discord: "https://discord.gg/hVjgY5ksy8",
     github: "https://github.com/SlickYeet/create-lx2-app",
-    tickets: "https://tickets.lx2.dev",
   },
   internalLinks: {
     navLinks: [
