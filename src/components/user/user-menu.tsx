@@ -1,6 +1,8 @@
 import type { User } from "better-auth"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
+import * as React from "react"
 
 import {
   DropdownMenu,
@@ -20,6 +22,11 @@ interface UserMenuProps {
 
 export function UserMenu({ user }: UserMenuProps) {
   const router = useRouter()
+  const { setTheme, resolvedTheme } = useTheme()
+
+  const toggleTheme = React.useCallback(() => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark")
+  }, [resolvedTheme, setTheme])
 
   return (
     <DropdownMenu>
@@ -41,6 +48,13 @@ export function UserMenu({ user }: UserMenuProps) {
             </Link>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel className="text-muted-foreground text-xs">
+          Preferences
+        </DropdownMenuLabel>
+        <DropdownMenuItem className="cursor-pointer" onClick={toggleTheme}>
+          Change theme
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
