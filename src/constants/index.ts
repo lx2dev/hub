@@ -1,6 +1,6 @@
 import { BookOpenIcon, LifeBuoyIcon } from "lucide-react"
 
-import { icons } from "@/components/icons/github"
+import { icons } from "@/components/icons"
 
 export const config = {
   externalLinks: {
