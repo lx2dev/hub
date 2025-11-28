@@ -1,12 +1,19 @@
 import { desc } from "drizzle-orm"
+import { redirect } from "next/navigation"
 
 import { TicketsTable } from "@/components/admin/tickets-table"
 import { UsersTable } from "@/components/admin/users-table"
 import { Separator } from "@/components/ui/separator"
+import { getSession } from "@/server/auth/utils"
 import { db } from "@/server/db"
 import { ticket, user } from "@/server/db/schema"
 
 export default async function AdminPage() {
+  const session = await getSession()
+  if (!session || session.user.role !== "admin") {
+    return redirect("/dashboard")
+  }
+
   const tickets = await db.select().from(ticket).orderBy(desc(ticket.createdAt))
   const users = await db.select().from(user).orderBy(desc(user.createdAt))
 
@@ -43,7 +50,7 @@ export default async function AdminPage() {
           </div>
 
           <div className="mt-5 md:col-span-4 md:mt-0">
-            <UsersTable users={users} />
+            <UsersTable currentUser={session.user} users={users} />
           </div>
         </div>
       </div>
