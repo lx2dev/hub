@@ -22,7 +22,7 @@ export default async function HomePage() {
           <nav className="-mx-3 flex flex-1 justify-end">
             <Button
               asChild
-              className="hover:bg-transparent! hover:opacity-80"
+              className="text-base hover:bg-transparent! hover:opacity-80"
               size="sm"
               variant="ghost"
             >
