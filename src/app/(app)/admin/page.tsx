@@ -1,12 +1,14 @@
 import { desc } from "drizzle-orm"
+import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
 import { TicketsTable } from "@/components/admin/tickets-table"
 import { UsersTable } from "@/components/admin/users-table"
 import { Separator } from "@/components/ui/separator"
+import { auth } from "@/server/auth"
 import { getSession } from "@/server/auth/utils"
 import { db } from "@/server/db"
-import { ticket, user } from "@/server/db/schema"
+import { ticket } from "@/server/db/schema"
 
 export default async function AdminPage() {
   const session = await getSession()
@@ -15,7 +17,13 @@ export default async function AdminPage() {
   }
 
   const tickets = await db.select().from(ticket).orderBy(desc(ticket.createdAt))
-  const users = await db.select().from(user).orderBy(desc(user.createdAt))
+  const data = await auth.api.listUsers({
+    headers: await headers(),
+    query: {
+      sortBy: "createdAt",
+      sortDirection: "desc",
+    },
+  })
 
   return (
     <>
@@ -43,14 +51,14 @@ export default async function AdminPage() {
           <div className="flex justify-between md:col-span-1">
             <div className="px-4 sm:px-0">
               <h3 className="font-medium text-foreground text-lg">
-                Users ({users.length})
+                Users ({data?.total})
               </h3>
             </div>
             <div className="px-4 sm:px-0" />
           </div>
 
           <div className="mt-5 md:col-span-4 md:mt-0">
-            <UsersTable currentUser={session.user} users={users} />
+            <UsersTable currentUser={session.user} users={data.users} />
           </div>
         </div>
       </div>
