@@ -1,3 +1,5 @@
+import type { UserWithRole } from "better-auth/plugins"
+
 export const config = {
   externalLinks: {
     "create-lx2-app": "https://create.lx2.dev",
@@ -15,6 +17,12 @@ export const config = {
         header: "Support Tickets",
         href: "/tickets",
         label: "Tickets",
+      },
+      {
+        header: "Admin",
+        href: "/admin",
+        label: "Admin",
+        visible: (user: UserWithRole) => user?.role === "admin" || false,
       },
     ],
     profileLinks: [

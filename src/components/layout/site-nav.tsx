@@ -1,5 +1,6 @@
 "use client"
 
+import type { UserWithRole } from "better-auth/plugins"
 import { ArrowUpRightIcon, MenuIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -46,28 +47,32 @@ export function SiteNav() {
 
             {/* Nav links */}
             <nav className="sm:-my-px hidden space-x-8 sm:ms-10 sm:flex">
-              {LINKS.navLinks.map((link) => (
-                <Link
-                  className={cn(
-                    "inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm leading-5 transition duration-150 ease-in-out hover:border-foreground/50 focus:outline-none",
-                    link.href === pathname
-                      ? "border-primary text-foreground hover:border-primary/80 focus:border-primary/80"
-                      : "border-transparent text-muted-foreground hover:text-foreground/80 focus:border-foreground/50 focus:text-foreground/80"
-                  )}
-                  // @ts-expect-error Invalid types from typed-routes
-                  href={link.href}
-                  key={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : "_self"}
-                >
-                  {link.label}
-                  {link.href.startsWith("http") && (
-                    <ArrowUpRightIcon
-                      aria-hidden="true"
-                      className="ml-1 size-3.5"
-                    />
-                  )}
-                </Link>
-              ))}
+              {LINKS.navLinks.map((link) =>
+                link.visible &&
+                user &&
+                !link.visible(user as UserWithRole) ? null : (
+                  <Link
+                    className={cn(
+                      "inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm leading-5 transition duration-150 ease-in-out hover:border-foreground/50 focus:outline-none",
+                      link.href === pathname
+                        ? "border-primary text-foreground hover:border-primary/80 focus:border-primary/80"
+                        : "border-transparent text-muted-foreground hover:text-foreground/80 focus:border-foreground/50 focus:text-foreground/80"
+                    )}
+                    // @ts-expect-error Invalid types from typed-routes
+                    href={link.href}
+                    key={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : "_self"}
+                  >
+                    {link.label}
+                    {link.href.startsWith("http") && (
+                      <ArrowUpRightIcon
+                        aria-hidden="true"
+                        className="ml-1 size-3.5"
+                      />
+                    )}
+                  </Link>
+                )
+              )}
             </nav>
           </div>
 
