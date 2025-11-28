@@ -1,5 +1,6 @@
 "use client"
 
+import type { Session, User } from "better-auth"
 import type { UserWithRole } from "better-auth/plugins"
 import { ArrowUpRightIcon, MenuIcon } from "lucide-react"
 import Image from "next/image"
@@ -16,15 +17,16 @@ import { Separator } from "@/components/ui/separator"
 import { UserAvatar } from "@/components/user/user-avatar"
 import { UserMenu } from "@/components/user/user-menu"
 import { config } from "@/constants"
-import { authClient, useSession } from "@/lib/auth/client"
+import { authClient } from "@/lib/auth/client"
 import { cn } from "@/lib/utils"
 
-export function SiteNav() {
+interface SiteNavProps {
+  session: Session & { user: User }
+}
+
+export function SiteNav({ session }: SiteNavProps) {
   const router = useRouter()
   const pathname = usePathname()
-
-  const { data: session } = useSession()
-  const user = session?.user
 
   const LINKS = config.internalLinks
 
@@ -49,8 +51,7 @@ export function SiteNav() {
             <nav className="sm:-my-px hidden space-x-8 sm:ms-10 sm:flex">
               {LINKS.navLinks.map((link) =>
                 link.visible &&
-                user &&
-                !link.visible(user as UserWithRole) ? null : (
+                !link.visible(session.user as UserWithRole) ? null : (
                   <Link
                     className={cn(
                       "inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm leading-5 transition duration-150 ease-in-out hover:border-foreground/50 focus:outline-none",
@@ -79,11 +80,12 @@ export function SiteNav() {
           <div className="hidden sm:ms-6 sm:flex sm:items-center">
             <div className="relative ms-3">
               <div className="relative">
-                <UserMenu user={user} />
+                <UserMenu user={session.user} />
               </div>
             </div>
           </div>
 
+          {/* Mobile nav */}
           <div className="-me-2 flex items-center sm:hidden">
             <Popover>
               <PopoverTrigger asChild>
@@ -92,6 +94,7 @@ export function SiteNav() {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="mt-3 w-screen border-x-0 border-t-0 bg-background px-0 text-muted-foreground">
+                {/* main nav */}
                 <div className="flex flex-col">
                   {LINKS.navLinks.map((link) => (
                     <div className="my-1 first:mt-0 last:mb-0" key={link.href}>
@@ -115,9 +118,10 @@ export function SiteNav() {
 
                   <Separator />
 
+                  {/* profile nav */}
                   <div className="mt-2 flex flex-col">
                     <div className="px-4">
-                      <UserAvatar showInfo user={user} />
+                      <UserAvatar showInfo user={session.user} />
                     </div>
 
                     <div className="mt-3">

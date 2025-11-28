@@ -12,7 +12,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
 
   return (
     <div>
-      <SiteNav />
+      <SiteNav session={session} />
       <SiteHeader />
       <main className="py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
