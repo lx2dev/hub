@@ -40,6 +40,9 @@ export type Ticket = InferSelectModel<typeof ticket>
 export type TicketStatus = (typeof ticketStatusEnum.enumValues)[number]
 
 export const user = createTable("user", (d) => ({
+  banExpires: d.timestamp("ban_expires"),
+  banned: d.boolean("banned").default(false),
+  banReason: d.text("ban_reason"),
   createdAt: d
     .timestamp("created_at", { withTimezone: true })
     .defaultNow()
@@ -49,6 +52,7 @@ export const user = createTable("user", (d) => ({
   id: d.text("id").primaryKey(),
   image: d.text("image"),
   name: d.text("name").notNull(),
+  role: d.text("role"),
   updatedAt: d
     .timestamp("updated_at", { withTimezone: true })
     .$onUpdate(() => /* @__PURE__ */ new Date())
@@ -66,6 +70,7 @@ export const session = createTable(
       .notNull(),
     expiresAt: d.timestamp("expires_at").notNull(),
     id: d.text("id").primaryKey(),
+    impersonatedBy: d.text("impersonated_by"),
     ipAddress: d.text("ip_address"),
     token: d.text("token").notNull().unique(),
     updatedAt: d
