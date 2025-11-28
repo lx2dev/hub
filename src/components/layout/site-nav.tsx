@@ -50,7 +50,7 @@ export function SiteNav() {
                   className={cn(
                     "inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm leading-5 transition duration-150 ease-in-out hover:border-foreground/50 focus:outline-none",
                     link.href === pathname
-                      ? "border-primary text-foreground focus:border-primary/80"
+                      ? "border-primary text-foreground hover:border-primary/80 focus:border-primary/80"
                       : "border-transparent text-muted-foreground hover:text-foreground/80 focus:border-foreground/50 focus:text-foreground/80"
                   )}
                   // @ts-expect-error Invalid types from typed-routes
@@ -93,7 +93,7 @@ export function SiteNav() {
                         className={cn(
                           "inline-block w-full border-transparent border-l-4 px-4 py-3 outline-none ring-0 transition duration-150 ease-in-out",
                           link.href === pathname
-                            ? "border-primary/80 bg-primary/25 text-primary hover:border-primary hover:bg-primary/35 focus:border-primary focus:bg-primary/35"
+                            ? "border-primary bg-primary/35 text-primary hover:border-primary/80 hover:bg-primary/25 focus:border-primary/80 focus:bg-primary/25"
                             : "hover:border-accent hover:bg-accent/50 focus:border-accent focus:bg-accent/50"
                         )}
                         // @ts-expect-error Invalid types from typed-routes
@@ -124,7 +124,7 @@ export function SiteNav() {
                             className={cn(
                               "inline-block w-full border-transparent border-l-4 px-4 py-3 outline-none ring-0 transition duration-150 ease-in-out",
                               link.href === pathname
-                                ? "border-primary/80 bg-primary/25 text-primary hover:border-primary hover:bg-primary/35 focus:border-primary focus:bg-primary/35"
+                                ? "border-primary bg-primary/35 text-primary hover:border-primary/80 hover:bg-primary/25 focus:border-primary/80 focus:bg-primary/25"
                                 : "hover:border-accent hover:bg-accent/50 focus:border-accent focus:bg-accent/50"
                             )}
                             // @ts-expect-error Invalid types from typed-routes
