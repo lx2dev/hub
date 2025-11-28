@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      ...Object.entries(config.externalLinks).map(([name, url]) => ({
-        destination: url,
+      ...Object.entries(config.externalLinks).map(([name, { href }]) => ({
+        destination: href,
         permanent: true,
         source: `/${name}`,
       })),
