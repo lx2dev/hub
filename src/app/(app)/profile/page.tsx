@@ -1,8 +1,10 @@
+import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
+import { BrowserSessions } from "@/components/profile/browser-sessions"
 import { ProfileForm } from "@/components/profile/profile-form"
-import { RevokeSessions } from "@/components/profile/revoke-sessions"
 import { Separator } from "@/components/ui/separator"
+import { auth } from "@/server/auth"
 import { getSession } from "@/server/auth/utils"
 
 export default async function ProfilePage() {
@@ -10,6 +12,12 @@ export default async function ProfilePage() {
   if (!session) {
     redirect("/login")
   }
+
+  const sessions = await auth.api.listSessions({
+    headers: await headers(),
+  })
+
+  const otherSessions = sessions.filter((s) => s.id !== session.id)
 
   return (
     <>
@@ -52,7 +60,7 @@ export default async function ProfilePage() {
             <div className="px-4 sm:px-0" />
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <RevokeSessions />
+            <BrowserSessions sessions={otherSessions} />
           </div>
         </div>
       </div>
