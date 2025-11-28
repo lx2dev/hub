@@ -40,6 +40,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -198,6 +199,36 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
     }
   }
 
+  async function handleDeleteUser(userId: string) {
+    try {
+      setState({
+        ...state,
+        action: "delete",
+        isPending: true,
+        userId: userId,
+      })
+
+      const res = await authClient.admin.removeUser({ userId })
+      if (res.error) {
+        toast.error(`Failed to delete user: ${res.error.message}`)
+        return
+      }
+
+      toast.success("User has been deleted.")
+      router.refresh()
+    } catch (error) {
+      console.error("Failed to delete user:", error)
+      toast.error("Failed to delete user. Please try again.")
+    } finally {
+      setState({
+        ...state,
+        action: null,
+        isPending: false,
+        userId: null,
+      })
+    }
+  }
+
   return (
     <Table>
       <TableHeader>
@@ -330,6 +361,23 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
                             Ban
                           </DropdownMenuItem>
                         )}
+                        <DropdownMenuItem
+                          disabled={
+                            user.id === currentUser.id ||
+                            (state.action === "delete" && state.isPending)
+                          }
+                          onClick={() =>
+                            setState({
+                              ...state,
+                              action: "delete",
+                              isPending: false,
+                              userId: user.id,
+                            })
+                          }
+                          variant="destructive"
+                        >
+                          Delete User
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
 
@@ -548,6 +596,57 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
                         </div>
                       </DialogContent>
                     </Dialog>
+
+                    <AlertDialog
+                      onOpenChange={(open) => {
+                        setState({
+                          ...state,
+                          action: open ? "delete" : null,
+                          isPending: false,
+                          userId: open ? user.id : null,
+                        })
+                      }}
+                      open={
+                        state.action === "delete" && state.userId === user.id
+                      }
+                    >
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you sure you want to delete this user?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            The user with the email{" "}
+                            <span className="font-semibold">
+                              "{user.email}"
+                            </span>{" "}
+                            will be permanently deleted from the platform.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction asChild>
+                            <Button
+                              disabled={
+                                user.id === currentUser.id ||
+                                (state.action === "delete" && state.isPending)
+                              }
+                              onClick={(e) => {
+                                e.preventDefault()
+                                handleDeleteUser(user.id)
+                              }}
+                              variant="destructive"
+                            >
+                              {state.action === "delete" && state.isPending ? (
+                                <Spinner />
+                              ) : (
+                                "Delete User"
+                              )}
+                            </Button>
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </>
                 )}
               </TableCell>
