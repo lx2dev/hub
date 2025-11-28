@@ -2,16 +2,36 @@ import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { nextCookies } from "better-auth/next-js"
 import { admin } from "better-auth/plugins"
+import { count, eq } from "drizzle-orm"
 
 import { env } from "@/env"
 import { resend } from "@/lib/resend"
 import { db } from "@/server/db"
+import { user as UserTable } from "@/server/db/schema"
 
 export const auth = betterAuth({
   baseURL: env.NEXT_PUBLIC_URL,
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
+  databaseHooks: {
+    user: {
+      create: {
+        async after(user) {
+          const [userCount] = await db
+            .select({ count: count() })
+            .from(UserTable)
+
+          if (userCount.count === 1) {
+            await db
+              .update(UserTable)
+              .set({ role: "admin" })
+              .where(eq(UserTable.id, user.id))
+          }
+        },
+      },
+    },
+  },
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
       await resend.emails.send({
