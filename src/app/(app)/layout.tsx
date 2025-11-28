@@ -1,7 +1,15 @@
+import { redirect } from "next/navigation"
+
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteNav } from "@/components/layout/site-nav"
+import { getSession } from "@/server/auth/utils"
 
-export default function AppLayout({ children }: LayoutProps<"/">) {
+export default async function AppLayout({ children }: LayoutProps<"/">) {
+  const session = await getSession()
+  if (!session) {
+    redirect("/login")
+  }
+
   return (
     <div>
       <SiteNav />

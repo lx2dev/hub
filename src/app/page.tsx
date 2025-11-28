@@ -34,7 +34,7 @@ export default async function HomePage() {
     },
     {
       description: "Get additional support from Lx2, we're here to listen.",
-      href: "https://hub.lx2.dev/tickets",
+      href: "/tickets",
       icon: LifeBuoyIcon,
       title: "Tickets",
     },
@@ -71,8 +71,13 @@ export default async function HomePage() {
         <main className="mt-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
             {ITEMS.map(({ description, href, icon: Icon, title }) => (
-              // @ts-expect-error Invalid types from typed-routes
-              <Link href={href} key={href} target="_blank">
+              <Link
+                // @ts-expect-error Invalid types from typed-routes
+                href={href}
+                key={href}
+                rel="noreferrer"
+                target={href.startsWith("http") ? "_blank" : "_self"}
+              >
                 <Card className="group hover:-translate-y-0.5 h-full min-h-40 ring-0 transition duration-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary/50 hover:border-primary/50 dark:focus-within:ring-primary/30">
                   <CardContent className="flex items-start gap-4">
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 sm:size-16">
