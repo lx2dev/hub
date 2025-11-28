@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn("antialiased", figtree.variable)}>
         <ThemeProvider>
           <div className="min-h-screen bg-black">{children}</div>
