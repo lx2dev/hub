@@ -127,6 +127,15 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
 
   const isSubmitting = form.formState.isSubmitting
 
+  function resetState() {
+    setState({
+      ...state,
+      action: null,
+      isPending: false,
+      userId: null,
+    })
+  }
+
   async function handleBanUser(values: z.infer<typeof banFormSchema>) {
     try {
       setState({
@@ -158,12 +167,7 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
       console.error("Failed to ban user:", error)
       toast.error("Failed to ban user. Please try again.")
     } finally {
-      setState({
-        ...state,
-        action: null,
-        isPending: false,
-        userId: null,
-      })
+      resetState()
     }
   }
 
@@ -188,12 +192,7 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
       console.error("Failed to unban user:", error)
       toast.error("Failed to unban user. Please try again.")
     } finally {
-      setState({
-        ...state,
-        action: null,
-        isPending: false,
-        userId: null,
-      })
+      resetState()
     }
   }
 
@@ -218,12 +217,7 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
       console.error("Failed to delete user:", error)
       toast.error("Failed to delete user. Please try again.")
     } finally {
-      setState({
-        ...state,
-        action: null,
-        isPending: false,
-        userId: null,
-      })
+      resetState()
     }
   }
 
