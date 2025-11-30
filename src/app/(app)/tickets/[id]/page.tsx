@@ -1,3 +1,4 @@
+import { formatDate } from "date-fns"
 import { eq } from "drizzle-orm"
 import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
@@ -62,8 +63,15 @@ export default async function TicketPage({
 
           <p className="text-muted-foreground text-sm">
             Submitted by{" "}
-            <span className="font-semibold">{ticketUser.name}</span> (
-            {ticketUser.email})
+            {ticketUser.id === session?.user?.id ? (
+              "You"
+            ) : (
+              <>
+                <span className="font-semibold">{ticketUser.name}</span> (
+                {ticketUser.email})
+              </>
+            )}{" "}
+            on {formatDate(new Date(ticket.createdAt), "PPP p")}
           </p>
         </div>
 
