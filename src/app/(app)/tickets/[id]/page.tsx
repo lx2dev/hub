@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { cn, normalizeStatus } from "@/lib/utils"
+import { getSession } from "@/server/auth/utils"
 import { db } from "@/server/db"
 import { ticket as ticketTable, user as userTable } from "@/server/db/schema"
 
@@ -17,6 +18,8 @@ export default async function TicketPage({
   params,
 }: PageProps<"/tickets/[id]">) {
   const { id } = await params
+
+  const session = await getSession()
 
   const [{ ticket, ticketUser }] = await db
     .select({
@@ -27,7 +30,13 @@ export default async function TicketPage({
     .rightJoin(userTable, eq(ticketTable.userId, userTable.id))
     .where(eq(ticketTable.id, Number(id)))
 
-  if (!ticket) return notFound()
+  if (
+    !ticket ||
+    !session ||
+    (ticket.userId !== session.user?.id && session.user?.role !== "admin")
+  ) {
+    return notFound()
+  }
 
   return (
     <div className="space-y-4">
