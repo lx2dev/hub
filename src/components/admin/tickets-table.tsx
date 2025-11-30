@@ -1,6 +1,5 @@
 "use client"
 
-import { eq } from "drizzle-orm"
 import { MoreVerticalIcon } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -37,7 +36,6 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { cn, normalizeStatus } from "@/lib/utils"
-import { db } from "@/server/db"
 import type { Ticket } from "@/server/db/schema"
 
 type ActionState = {
