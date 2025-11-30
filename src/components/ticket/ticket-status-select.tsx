@@ -32,7 +32,7 @@ export function TicketStatusSelect({ ticket }: { ticket: Ticket }) {
 
   return (
     <Select defaultValue={ticket.status} onValueChange={handleUpdateStatus}>
-      <SelectTrigger className="capitalize">
+      <SelectTrigger className="min-w-[150px] capitalize">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
