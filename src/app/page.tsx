@@ -5,6 +5,7 @@ import Link from "next/link"
 import { icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import { getSession } from "@/server/auth/utils"
 
 export default async function HomePage() {
@@ -36,7 +37,7 @@ export default async function HomePage() {
       description: "Get additional support from Lx2, we're here to listen.",
       href: "/tickets",
       icon: LifeBuoyIcon,
-      title: "Tickets",
+      title: "Support Tickets",
     },
   ]
 
@@ -55,7 +56,11 @@ export default async function HomePage() {
           <nav className="-mx-3 flex flex-1 justify-end">
             <Button
               asChild
-              className="text-base hover:bg-transparent! hover:opacity-80"
+              className={cn(
+                "text-base",
+                "hover:bg-transparent! hover:opacity-80",
+                "focus-visible:bg-transparent! focus-visible:underline focus-visible:opacity-80 focus-visible:outline-none focus-visible:ring-0"
+              )}
               size="sm"
               variant="ghost"
             >
@@ -76,9 +81,17 @@ export default async function HomePage() {
                 href={href}
                 key={href}
                 rel="noreferrer"
+                tabIndex={-1}
                 target={href.startsWith("http") ? "_blank" : "_self"}
               >
-                <Card className="group hover:-translate-y-0.5 h-full min-h-40 ring-0 transition duration-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary/50 hover:border-primary/50 dark:focus-within:ring-primary/30">
+                <Card
+                  className={cn(
+                    "group h-full min-h-40 outline-none ring-0 transition duration-300",
+                    "hover:-translate-y-0.5 hover:border-primary/50",
+                    "focus-visible:-translate-y-0.5 focus-visible:border-primary/50"
+                  )}
+                  tabIndex={0}
+                >
                   <CardContent className="flex items-start gap-4">
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 sm:size-16">
                       <Icon className="size-5 text-primary sm:size-6" />
@@ -88,7 +101,12 @@ export default async function HomePage() {
                       <h2 className="font-semibold text-foreground text-xl capitalize">
                         {title}
                       </h2>
-                      <p className="mt-4 text-muted-foreground text-sm/relaxed transition group-hover:text-foreground/80">
+                      <p
+                        className={cn(
+                          "mt-4 text-muted-foreground text-sm/relaxed transition",
+                          "group-hover:text-foreground/80 group-focus-visible:text-foreground/80"
+                        )}
+                      >
                         {description}
                       </p>
                     </div>
