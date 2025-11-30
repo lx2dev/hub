@@ -130,10 +130,12 @@ export function TicketForm() {
                     <InputGroupText
                       className={cn(
                         "text-muted-foreground text-xs",
-                        field.value.length > 500 && "text-destructive"
+                        field.value &&
+                          field.value.length > 500 &&
+                          "text-destructive"
                       )}
                     >
-                      {field.value.length}/500 characters left
+                      {field.value?.length}/500 characters left
                     </InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
