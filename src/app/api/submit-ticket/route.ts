@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 import z from "zod"
 
+import { env } from "@/env"
 import { sendEmail } from "@/lib/email"
 import { rateLimiter } from "@/lib/ratelimit"
 import { redis } from "@/lib/redis"
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
     const { limit, remaining, success, reset } = await rateLimiter({
       endpoint: "submit-ticket",
       ip,
-      limit: 5,
+      limit: env.NODE_ENV === "development" ? 100 : 5,
       window: 1000 * 60 * 5,
     })
     if (!success) {
