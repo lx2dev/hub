@@ -30,7 +30,7 @@ export function TicketStatusSelect({
     if (!isAdmin) return
 
     try {
-      await updateTicketStatus(ticket.id, newStatus)
+      await updateTicketStatus(ticket.id, newStatus, isAdmin)
 
       toast.success("Ticket status updated successfully")
       router.refresh()

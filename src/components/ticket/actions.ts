@@ -6,7 +6,13 @@ import { db } from "@/server/db"
 import type { ticketStatusEnum } from "@/server/db/schema"
 import { ticket as ticketTable } from "@/server/db/schema"
 
-export async function updateTicketStatus(ticketId: number, newStatus: string) {
+export async function updateTicketStatus(
+  ticketId: number,
+  newStatus: string,
+  isAdmin: boolean
+) {
+  if (!isAdmin) throw new Error("UNAUTHORIZED", { cause: 401 })
+
   await db
     .update(ticketTable)
     .set({
