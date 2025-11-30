@@ -15,10 +15,20 @@ import { normalizeStatus } from "@/lib/utils"
 import type { Ticket } from "@/server/db/schema"
 import { ticketStatusEnum } from "@/server/db/schema"
 
-export function TicketStatusSelect({ ticket }: { ticket: Ticket }) {
+interface TicketStatusSelectProps {
+  isAdmin: boolean
+  ticket: Ticket
+}
+
+export function TicketStatusSelect({
+  isAdmin,
+  ticket,
+}: TicketStatusSelectProps) {
   const router = useRouter()
 
   async function handleUpdateStatus(newStatus: string) {
+    if (!isAdmin) return
+
     try {
       await updateTicketStatus(ticket.id, newStatus)
 
@@ -31,7 +41,11 @@ export function TicketStatusSelect({ ticket }: { ticket: Ticket }) {
   }
 
   return (
-    <Select defaultValue={ticket.status} onValueChange={handleUpdateStatus}>
+    <Select
+      defaultValue={ticket.status}
+      disabled={!isAdmin}
+      onValueChange={handleUpdateStatus}
+    >
       <SelectTrigger className="min-w-[150px] capitalize">
         <SelectValue />
       </SelectTrigger>

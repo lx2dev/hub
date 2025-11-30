@@ -66,7 +66,8 @@ export default async function TicketPage({
             {ticketUser.email})
           </p>
         </div>
-        <TicketStatusSelect ticket={ticket} />
+
+        {isAdmin && <TicketStatusSelect isAdmin={isAdmin} ticket={ticket} />}
       </div>
       <Card>
         <CardContent className="space-y-6">
