@@ -74,7 +74,6 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { authClient } from "@/lib/auth/client"
-import { cn } from "@/lib/utils"
 import { banFormSchema } from "@/schema"
 
 type ActionState = {
@@ -240,7 +239,9 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
           </TableHead>
           <TableHead className="text-muted-foreground">Email</TableHead>
           <TableHead className="text-muted-foreground">Name</TableHead>
-          <TableHead className="text-right">Created At</TableHead>
+          <TableHead className="text-right text-muted-foreground">
+            Created At
+          </TableHead>
           <TableHead className="text-right" />
         </TableRow>
       </TableHeader>
@@ -284,13 +285,12 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
               <TableCell className="text-right">
                 {formatDate(user.createdAt, "PP")}
               </TableCell>
-              <TableCell
-                className={cn(
-                  "text-right",
-                  user.id === currentUser.id && "py-[26.25px]"
-                )}
-              >
-                {user.id === currentUser.id ? null : (
+              <TableCell className="text-right">
+                {user.id === currentUser.id ? (
+                  <Button disabled size="icon" variant="ghost">
+                    <MoreVerticalIcon />
+                  </Button>
+                ) : (
                   <>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
