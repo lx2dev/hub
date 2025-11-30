@@ -21,6 +21,8 @@ export default async function TicketPage({
 
   const session = await getSession()
 
+  const isAdmin = session?.user?.role === "admin"
+
   const [{ ticket, ticketUser }] = await db
     .select({
       ticket: ticketTable,
@@ -30,18 +32,14 @@ export default async function TicketPage({
     .rightJoin(userTable, eq(ticketTable.userId, userTable.id))
     .where(eq(ticketTable.id, Number(id)))
 
-  if (
-    !ticket ||
-    !session ||
-    (ticket.userId !== session.user?.id && session.user?.role !== "admin")
-  ) {
+  if (!ticket || !session || (ticket.userId !== session.user?.id && !isAdmin)) {
     return notFound()
   }
 
   return (
     <div className="space-y-4">
       <Button asChild size="sm" variant="ghost">
-        <Link href="/admin">
+        <Link href={isAdmin ? "/admin" : "/tickets"}>
           <ArrowLeftIcon /> Back
         </Link>
       </Button>
