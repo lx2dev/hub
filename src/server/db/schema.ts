@@ -33,7 +33,7 @@ export const ticket = createTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   }),
-  (t) => [index("ticket_reason_idx").on(t.reason)]
+  (t) => [index("ticket_reason_idx").on(t.reason)],
 )
 
 export type Ticket = InferSelectModel<typeof ticket>
@@ -83,7 +83,7 @@ export const session = createTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   }),
-  (t) => [index("session_userId_idx").on(t.userId)]
+  (t) => [index("session_userId_idx").on(t.userId)],
 )
 
 export const account = createTable(
@@ -112,7 +112,7 @@ export const account = createTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   }),
-  (t) => [index("account_userId_idx").on(t.userId)]
+  (t) => [index("account_userId_idx").on(t.userId)],
 )
 
 export const verification = createTable(
@@ -132,7 +132,7 @@ export const verification = createTable(
       .notNull(),
     value: d.text("value").notNull(),
   }),
-  (t) => [index("verification_identifier_idx").on(t.identifier)]
+  (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 export const userRelations = relations(user, ({ many }) => ({
