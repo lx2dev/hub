@@ -38,7 +38,7 @@ export function UserTicketsList({ tickets }: UserTicketsListProps) {
               <Badge
                 className={cn(
                   "font-medium text-white capitalize",
-                  normalizeStatus(ticket.status).className
+                  normalizeStatus(ticket.status).className,
                 )}
               >
                 {normalizeStatus(ticket.status).label}

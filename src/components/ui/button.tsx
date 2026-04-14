@@ -34,7 +34,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
       },
     },
-  }
+  },
 )
 
 function Button({

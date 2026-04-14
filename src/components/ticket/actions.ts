@@ -9,7 +9,7 @@ import { ticket as ticketTable } from "@/server/db/schema"
 export async function updateTicketStatus(
   ticketId: number,
   newStatus: string,
-  isAdmin: boolean
+  isAdmin: boolean,
 ) {
   if (!isAdmin) throw new Error("UNAUTHORIZED", { cause: 401 })
 

@@ -38,7 +38,7 @@ export default async function TicketsPage() {
           <CardDescription
             className={cn(
               "text-muted-foreground leading-relaxed",
-              tickets.length === 0 && "mt-6"
+              tickets.length === 0 && "mt-6",
             )}
           >
             {tickets.length > 0

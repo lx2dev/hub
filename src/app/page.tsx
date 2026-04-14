@@ -59,7 +59,7 @@ export default async function HomePage() {
               className={cn(
                 "text-base",
                 "hover:bg-transparent! hover:opacity-80",
-                "focus-visible:bg-transparent! focus-visible:underline focus-visible:opacity-80 focus-visible:outline-none focus-visible:ring-0"
+                "focus-visible:bg-transparent! focus-visible:underline focus-visible:opacity-80 focus-visible:outline-none focus-visible:ring-0",
               )}
               size="sm"
               variant="ghost"
@@ -88,7 +88,7 @@ export default async function HomePage() {
                   className={cn(
                     "group h-full min-h-40 outline-none ring-0 transition duration-300",
                     "hover:-translate-y-0.5 hover:border-primary/50",
-                    "focus-visible:-translate-y-0.5 focus-visible:border-primary/50"
+                    "focus-visible:-translate-y-0.5 focus-visible:border-primary/50",
                   )}
                   tabIndex={0}
                 >
@@ -104,7 +104,7 @@ export default async function HomePage() {
                       <p
                         className={cn(
                           "mt-4 text-muted-foreground text-sm/relaxed transition",
-                          "group-hover:text-foreground/80 group-focus-visible:text-foreground/80"
+                          "group-hover:text-foreground/80 group-focus-visible:text-foreground/80",
                         )}
                       >
                         {description}

@@ -94,9 +94,7 @@ export function TicketsTable({ tickets }: TicketsTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px] text-muted-foreground">
-            Status
-          </TableHead>
+          <TableHead className="w-25 text-muted-foreground">Status</TableHead>
           <TableHead className="text-muted-foreground">Reason</TableHead>
           <TableHead className="text-muted-foreground">Description</TableHead>
           <TableHead className="text-right" />
@@ -119,7 +117,7 @@ export function TicketsTable({ tickets }: TicketsTableProps) {
                 <Badge
                   className={cn(
                     "font-medium text-white capitalize",
-                    normalizeStatus(ticket.status).className
+                    normalizeStatus(ticket.status).className,
                   )}
                 >
                   {normalizeStatus(ticket.status).label}

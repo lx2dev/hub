@@ -15,7 +15,7 @@ interface rateLimiterParams {
 }
 
 export async function rateLimiter(
-  params: rateLimiterParams
+  params: rateLimiterParams,
 ): Promise<RateLimitResult> {
   const { ip, endpoint, limit = 3, window = 60 * 1000 } = params
 

@@ -51,7 +51,7 @@ export default async function TicketPage({
             <Badge
               className={cn(
                 "capitalize",
-                normalizeStatus(ticket.status).className
+                normalizeStatus(ticket.status).className,
               )}
             >
               {normalizeStatus(ticket.status).label}
