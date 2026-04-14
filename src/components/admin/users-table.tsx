@@ -259,7 +259,7 @@ export function UsersTable({ users, currentUser }: UsersTableProps) {
                   <CircleIcon className="size-5 stroke-green-500" />
                 )}
               </TableCell>
-              <TableCell className="max-w-[200px] truncate">
+              <TableCell className="max-w-50 truncate">
                 {user.banReason || "-"}
               </TableCell>
               <TableCell>

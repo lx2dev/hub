@@ -35,10 +35,14 @@ import { ticketFormSchema, ticketReasons } from "@/schema"
 export function TicketForm() {
   const router = useRouter()
 
-  const form = useForm<z.infer<typeof ticketFormSchema>>({
+  const form = useForm<
+    z.input<typeof ticketFormSchema>,
+    undefined,
+    z.output<typeof ticketFormSchema>
+  >({
     defaultValues: {
       description: "",
-      reason: "-",
+      reason: undefined,
     },
     resolver: zodResolver(ticketFormSchema),
   })
@@ -61,7 +65,7 @@ export function TicketForm() {
 
       if (res.status === 429) {
         toast.error(
-          "You are submitting tickets too quickly. Please try again later."
+          "You are submitting tickets too quickly. Please try again later.",
         )
         return
       }
@@ -92,7 +96,7 @@ export function TicketForm() {
               <Select
                 disabled={isPending}
                 onValueChange={field.onChange}
-                value={field.value}
+                value={field.value || "-"}
               >
                 <FormControl>
                   <SelectTrigger className="w-full sm:w-48">
@@ -100,8 +104,8 @@ export function TicketForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {ticketReasons.options.map((reason, idx) => (
-                    <SelectItem key={idx} value={reason}>
+                  {ticketReasons.options.map((reason) => (
+                    <SelectItem key={reason} value={reason}>
                       {reason}
                     </SelectItem>
                   ))}
@@ -132,7 +136,7 @@ export function TicketForm() {
                         "text-muted-foreground text-xs",
                         field.value &&
                           field.value.length > 500 &&
-                          "text-destructive"
+                          "text-destructive",
                       )}
                     >
                       {field.value?.length}/500 characters left

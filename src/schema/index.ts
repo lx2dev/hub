@@ -13,9 +13,11 @@ export const ticketFormSchema = z.object({
     .max(500, {
       message: "Description must be at most 500 characters long",
     }),
-  reason: ticketReasons.refine((val) => val !== "-", {
-    message: "Please select a reason",
-  }),
+  reason: ticketReasons
+    .refine((val) => val !== "-", {
+      message: "Please select a reason",
+    })
+    .nullable(),
 })
 
 export const banFormSchema = z.object({

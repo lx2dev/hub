@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
             "X-RateLimit-Reset": reset?.toString(),
           },
           status: 429,
-        }
+        },
       )
     }
 
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     if (!session?.user) {
       return NextResponse.json(
         { error: "Unauthorized. Please log in." },
-        { status: 401 }
+        { status: 401 },
       )
     }
 
@@ -54,13 +54,7 @@ export async function POST(req: NextRequest) {
     if (!name || !email || !reason || !description) {
       return NextResponse.json(
         { error: "All fields are required." },
-        { status: 400 }
-      )
-    }
-    if (reason === "-") {
-      return NextResponse.json(
-        { error: "Please select a reason." },
-        { status: 400 }
+        { status: 400 },
       )
     }
 
@@ -68,7 +62,7 @@ export async function POST(req: NextRequest) {
     if (!isValidEmail.success) {
       return NextResponse.json(
         { error: "Invalid email address." },
-        { status: 400 }
+        { status: 400 },
       )
     }
 
@@ -83,7 +77,7 @@ export async function POST(req: NextRequest) {
     if (!newTicket) {
       return NextResponse.json(
         { error: "Failed to create support ticket." },
-        { status: 500 }
+        { status: 500 },
       )
     }
 
@@ -116,13 +110,13 @@ export async function POST(req: NextRequest) {
           "X-RateLimit-Reset": reset?.toString(),
         },
         status: 200,
-      }
+      },
     )
   } catch (error) {
     console.error("Error processing support ticket:", error)
     return NextResponse.json(
       { error: "Failed to process support ticket." },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
