@@ -5,7 +5,7 @@ import z from "zod"
 import { env } from "@/env"
 import { sendEmail } from "@/lib/email"
 import { rateLimiter } from "@/lib/ratelimit"
-import { redis } from "@/lib/redis"
+import { getRedisClient } from "@/lib/redis"
 import type { ticketFormSchema } from "@/schema"
 import { getSession } from "@/server/auth/utils"
 import { db } from "@/server/db"
@@ -88,6 +88,8 @@ export async function POST(req: NextRequest) {
       subject: reason,
       to: "lasse@lx2.dev",
     })
+
+    const redis = getRedisClient()
 
     const ticketId = `ticket:${Date.now()}:${Math.random()}`
     await redis.hset(ticketId, {

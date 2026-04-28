@@ -1,4 +1,4 @@
-import { redis } from "@/lib/redis"
+import { getRedisClient } from "@/lib/redis"
 
 type RateLimitResult = {
   limit: number
@@ -21,6 +21,7 @@ export async function rateLimiter(
 
   const key = `ratelimit:${ip}:${endpoint}`
 
+  const redis = getRedisClient()
   const currentCount = await redis.get(key)
   const count = parseInt(currentCount as string, 10) ?? 0
 
@@ -38,7 +39,7 @@ export async function rateLimiter(
   }
 
   if (count === 0) {
-    await redis.set(key, 1, "PX", window)
+    await redis.set(key, 1, { PX: window })
   } else {
     await redis.incr(key)
   }
