@@ -1,4 +1,4 @@
 {
-  "tailwindCSS.classFunctions": ["cva", "cn"],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "js/ts.experimental.useTsgo": true,
+  "tailwindCSS.classFunctions": ["cva", "cn"]
 }
