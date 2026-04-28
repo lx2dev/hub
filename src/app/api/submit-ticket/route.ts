@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
     const redis = getRedisClient()
 
     const ticketId = `ticket:${Date.now()}:${Math.random()}`
-    await redis.hset(ticketId, {
+    await redis.hSet(ticketId, {
       createdAt: new Date().toISOString(),
       description,
       email,
