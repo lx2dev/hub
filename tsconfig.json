@@ -2,7 +2,6 @@
   "compilerOptions": {
     "allowJs": true,
     /* Path Aliases */
-    "baseUrl": ".",
     "checkJs": true,
     /* Base Options: */
     "esModuleInterop": true,
@@ -17,11 +16,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     /* Strictness */
